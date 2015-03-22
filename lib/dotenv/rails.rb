@@ -16,7 +16,7 @@ end
 module Dotenv
   # Dotenv Railtie for using Dotenv to load environment from a file into
   # Rails applications
-  class Railtie < Rails::Railtie
+  class Railtie < Rails::Engine
     config.before_configuration { load }
 
     # Public: Load dotenv
