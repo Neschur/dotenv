@@ -60,6 +60,8 @@ describe Dotenv::Parser do
   it "does not expand escaped variables" do
     expect(env('FOO="foo\$BAR"')).to eql("FOO" => "foo$BAR")
     expect(env('FOO="foo\${BAR}"')).to eql("FOO" => "foo${BAR}")
+    expect(env("FOO=test\nBAR=\"foo\\${FOO} ${FOO}\""))
+      .to eql("FOO" => "test", "BAR" => "foo${FOO} test")
   end
 
   it "parses yaml style options" do
@@ -140,6 +142,18 @@ export OH_NO_NOT_SET')
     it "is not thrown off by quotes in interpolated shell commands" do
       expect(env('interp=$(echo "Quotes won\'t be a problem")')["interp"])
         .to eql("Quotes won't be a problem")
+    end
+
+    it "supports carriage return" do
+      expect(env("FOO=bar\rbaz=fbb")).to eql("FOO" => "bar", "baz" => "fbb")
+    end
+
+    it "supports carriage return combine with new line" do
+      expect(env("FOO=bar\r\nbaz=fbb")).to eql("FOO" => "bar", "baz" => "fbb")
+    end
+
+    it "expands carriage return in quoted strings" do
+      expect(env('FOO="bar\rbaz"')).to eql("FOO" => "bar\rbaz")
     end
 
     # This functionality is not supported on JRuby or Rubinius

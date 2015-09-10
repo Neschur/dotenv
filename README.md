@@ -1,5 +1,7 @@
 # dotenv [![Build Status](https://secure.travis-ci.org/bkeepers/dotenv.png?branch=master)](https://travis-ci.org/bkeepers/dotenv)
 
+[![Join the chat at https://gitter.im/bkeepers/dotenv](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bkeepers/dotenv?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Shim to load environment variables from `.env` into `ENV` in *development*.
 
 Storing [configuration in the environment](http://www.12factor.net/config) is one of the tenets of a [twelve-factor app](http://www.12factor.net/). Anything that is likely to change between deployment environments–such as resource handles for databases or credentials for external services–should be extracted from the code into environment variables.
@@ -88,6 +90,11 @@ If you need multiline variables, for example private keys, you can double quote 
 PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nHkVN9…\n-----END DSA PRIVATE KEY-----\n"
 ```
 
+You need to add the output of a command in one of your variables? Simply add it with `$(your_command)`:
+```shell
+DATABASE_URL="postgres://$(whoami)@localhost/my_database"
+```
+
 You may also add `export` in front of each line so you can `source` the file in bash:
 
 ```shell
@@ -117,7 +124,9 @@ dotenv was originally created to load configuration variables into `ENV` in *dev
 
 However, some find dotenv to be a convenient way to configure Rails applications in staging and production environments, and you can do that by defining environment-specific files like `.env.production` or `.env.test`.
 
-You can also `.env.local` for local overrides.
+You can also use `.env.local` for local overrides.
+
+If you use this gem to handle env vars for multiple Rails environments (development, test, production, etc.), please note that env vars that are general to all environments should be stored in `.env`. Then, environment specific env vars should be stored in `.env.<that environment's name>`. When you load a certain environment, dotenv will first load general env vars from `.env`, then load environment specific env vars from `.env.<current environment>`. Variables defined in `.env.<current environment>` will override any values set in `.env` or already defined in the environment.
 
 ## Should I commit my .env file?
 

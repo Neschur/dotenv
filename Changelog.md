@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.2 - June 19, 2015
+
+* Support charriage returns in addition to newlines in .env ([#194](https://github.com/bkeepers/dotenv/pull/194))
+* Add runtime dependency on rails 4 for dotenv-rails ([#189](https://github.com/bkeepers/dotenv/pull/189))
+
+[Full Changelog](https://github.com/bkeepers/dotenv/compare/v2.0.1...v2.0.2)
+
+## 2.0.1 - Apr 3, 2015
+
+* Fix for expansion of escaped variables ([#181](https://github.com/bkeepers/dotenv/pull/181))
+
+[Full Changelog](https://github.com/bkeepers/dotenv/compare/v2.0.0...v2.0.1)
+
 ## 2.0.0 - Mar 5, 2015
 
 * `.env.local` and `.env.#{Rails.env}` will be automatically be loaded with the `dotenv-rails` gem.
@@ -13,6 +26,8 @@
         dotenv -f /path/to/.env,/path/to/another/.env
 
 * Fix issue calling `Dotenv::Railtie.load` in Rails 4.1 before application is defined (#155)
+
+[Full Changelog](https://github.com/bkeepers/dotenv/compare/v1.0.2...v2.0.0)
 
 ## 1.0.2 - Oct 14, 2014
 
@@ -46,7 +61,6 @@
 * Avoid substitutions inside single quotes ([#124](https://github.com/bkeepers/dotenv/pull/124))
 
 [Full Changelog](https://github.com/bkeepers/dotenv/compare/v0.11.1...v1.0.0)
->>>>>>> origin/master
 
 ## 0.11.1 - Apr 22, 2014
 
